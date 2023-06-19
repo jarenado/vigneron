@@ -6,10 +6,19 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load('assets/img/Woodcutter.png')
         self.rect = self.image.get_rect()
-        self.rect.center = (WIDTH / 2, HEIGHT / 2)
-        pygame.draw.rect(self.image, red, self.rect, 3)
+        # self.rect.center = (WIDTH / 2, HEIGHT)
+        self.rect.x = 0
+        self.rect.y = HEIGHT - self.rect.height
+        pygame.draw.rect(self.image, red, self.rect, 0)
+
+    def move_right(self):
+        self.rect.x += 5
+        pygame.draw.rect(self.image, red, self.rect, 0)
+
+    def move_left(self):
+        self.rect.x -= 5
+        pygame.draw.rect(self.image, red, self.rect, 0)
 
     def update(self):
-        self.rect.x += 5
         if self.rect.left > WIDTH:
             self.rect.right = 0
