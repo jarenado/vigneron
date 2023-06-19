@@ -1,6 +1,7 @@
 import pygame, sys
 from settings import *
 from Player import *
+from Enemy import *
 
 bg_image = pygame.image.load('assets/img/clouds.png')
 
@@ -14,6 +15,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.screen.blit(bg_image, (0, 0))
         self.screen.blit(player.image, player.rect)
+        self.screen.blit(enemy.image, enemy.rect)
 
     def draw(self):
         self.screen.blit(bg_image, (0, 0))
@@ -43,6 +45,12 @@ class Game:
 
 if __name__ == '__main__':
     player = Player()
+    enemy = Enemy()
+    enemies = pygame.sprite.Group()
+    enemies.add(enemy)
+    all_sprites = pygame.sprite.Group()
+    all_sprites.add(player)
+    all_sprites.add(enemy)
 
     game = Game()
     game.run()
