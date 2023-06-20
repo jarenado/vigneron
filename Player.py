@@ -12,7 +12,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load('assets/img/Woodcutter.png')
         self.rect = self.image.get_rect()
         self.rect.x = 0
-        self.rect.y = HEIGHT - self.rect.height
+        self.rect.y = HEIGHT - self.rect.height - 190
         pygame.draw.rect(self.image, red, self.rect, 0)
 
     def jump(self):

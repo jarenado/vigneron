@@ -1,7 +1,7 @@
 import pygame
 
-WIDTH = 800
-HEIGHT = 400
+WIDTH = 480 * 2
+HEIGHT = 320 * 2
 FPS = 60
 
 black = pygame.Color(0, 0, 0)         # Black

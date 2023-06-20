@@ -3,8 +3,6 @@ from settings import *
 from Player import *
 from Enemy import *
 
-bg_image = pygame.image.load('assets/img/clouds.png')
-
 
 
 class Game:
@@ -20,6 +18,7 @@ class Game:
     def draw(self):
         self.screen.blit(bg_image, (0, 0))
         self.screen.blit(player.image, player.rect)
+        self.screen.blit(enemy.image, enemy.rect)
 
     def run(self):
         while True:
@@ -34,6 +33,7 @@ class Game:
                     if event.key == pygame.K_d:
                         player.rect.x += 15
                         self.draw()
+
                     if event.key == pygame.K_a:
                         player.rect.x -= 15
                         self.draw()
@@ -44,6 +44,7 @@ class Game:
 
 
 if __name__ == '__main__':
+    bg_image = pygame.transform.scale(pygame.image.load('assets/img/level1.png'), (WIDTH, HEIGHT))
     player = Player()
     enemy = Enemy()
     enemies = pygame.sprite.Group()
