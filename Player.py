@@ -33,13 +33,13 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += dx
         self.rect.y += dy
         
-    def move_left(self):
+    def move_left(self, vel):
         self.x_vel = -vel
         if self.direction != "left":
             self.direction = "left"
             self.animation_count = 0
 
-    def move_right(self):
+    def move_right(self, vel):
         self.x_vel = vel
         if self.direction != "right":
             self.direction = "right"

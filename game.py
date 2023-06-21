@@ -21,29 +21,48 @@ class Game:
         self.screen.blit(player.image, player.rect)
         # self.screen.blit(enemy.image, enemy.rect)
 
+
     def run(self):
+
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
 
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        print('space')
-                    if event.key == pygame.K_d:
-                        player.rect.x += 15
-                        player.draw(self.screen)
-                        self.draw()
 
-                    if event.key == pygame.K_a:
-                        player.rect.x -= 15
-                        player.draw(self.screen)
-                        self.draw()
+                player.loop(FPS)
+                handle_move(player)
+    
+                # if event.type == pygame.KEYDOWN:
+                    # if event.key == pygame.K_SPACE:
+                        # print('space')
+                    # if event.key == pygame.K_d:
+                        # player.rect.x += 15
+                        # player.draw(self.screen)
+                        # self.draw()
+
+                    # if event.key == pygame.K_a:
+                        # player.rect.x -= 15
+                        # player.draw(self.screen)
+                        # self.draw()
+
 
 
                 dt = self.clock.tick(FPS)
                 pygame.display.update()
+
+def handle_move(player):
+    keys = pygame.key.get_pressed()
+    player.x_vel = 0
+
+    if keys[pygame.K_a]:
+        player.move_left(player.x_vel)
+        print('a')
+
+    if keys[pygame.K_d]:
+        player.move_right(player.x_vel)
+        print('d')
 
 
 
@@ -51,13 +70,12 @@ if __name__ == '__main__':
     # get background image
     bg_image = pygame.transform.scale(pygame.image.load('assets/img/level1.png'), (WIDTH, HEIGHT))
 
-    # create player
-    player = Player(0, 400, 100, 100, 5)
-
     # set main game window size
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     
-    player.draw(screen)
+
+    # create player
+    player = Player(0, 400, 100, 100, 5)
     # enemy = Enemy()
     # enemies = pygame.sprite.Group()
     # enemies.add(enemy)
@@ -65,5 +83,6 @@ if __name__ == '__main__':
     # all_sprites.add(player)
     # all_sprites.add(enemy)
 
+    player.draw(screen)
     game = Game()
     game.run()
