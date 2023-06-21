@@ -81,8 +81,16 @@ class Player(pygame.sprite.Sprite):
             self.direction = "right"
             self.animation_count = 0
 
+    def move_up(self, vel):
+        self.y_vel = -vel
+        print('up')
+
+    def move_down(self, vel):
+        self.y_vel = vel
+        print('down')
+
     def loop(self, fps):
-        # self.y_vel += min(1, (self.fall_count / FPS) * GRAVITY)
+        self.y_vel += min(1, (self.fall_count / FPS) * GRAVITY)
         self.move(self.x_vel, self.y_vel)
 
         self.fall_count += 1
@@ -94,6 +102,10 @@ class Player(pygame.sprite.Sprite):
             sprite_sheet = "idle-bunny"
 
         sprite_sheet_name = sprite_sheet + "_" + self.direction
+        if self.direction == "up":
+            sprite_sheet = "idle-bunny"
+        if self.direction == "down":
+            sprite_sheet = "idle-bunny"
         sprites = self.SPRITES[sprite_sheet_name]
         sprite_index = (self.animation_count // self.ANIMATION_DELAY) % len(sprites)
         self.sprite = sprites[sprite_index]

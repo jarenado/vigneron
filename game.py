@@ -19,10 +19,25 @@ class Game:
         # self.screen.blit(player.image, player.rect)
         # self.screen.blit(enemy.image, enemy.rect)
         player.draw(self.screen)
+
+        my_font = pygame.font.SysFont('Comic Sans MS', 40)
+
+        # Points
+        points_display = my_font.render('Points: 40', False, (0, 0, 0))
+        self.screen.blit(points_display, (WIDTH - 180,20))
+
+        # Health
+        health_display = my_font.render('Health: 100', False, (0, 0, 0))
+        self.screen.blit(health_display, (WIDTH - 180,50))
+
         pygame.display.update()
 
 
     def run(self):
+        pygame.mixer.music.load('assets/audio/music.mp3')
+        pygame.mixer.music.play(-1)
+        pygame.font.init() # you have to call this at the start, 
+                           # if you want to use this module.
 
         while True:
             for event in pygame.event.get():
@@ -30,24 +45,9 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
-
             player.loop(FPS)
             handle_move(player)
     
-                # if event.type == pygame.KEYDOWN:
-                    # if event.key == pygame.K_SPACE:
-                        # print('space')
-                    # if event.key == pygame.K_d:
-                        # player.rect.x += 15
-                        # player.draw(self.screen)
-                        # self.draw()
-
-                    # if event.key == pygame.K_a:
-                        # player.rect.x -= 15
-                        # player.draw(self.screen)
-                        # self.draw()
-
-
             self.draw()
             dt = self.clock.tick(FPS)
 
@@ -57,6 +57,7 @@ def handle_move(player):
 
     if keys[pygame.K_SPACE]:
         # player.move_left(5)
+        pygame.mixer.Channel(2).play(pygame.mixer.Sound('assets/audio/gunloop.wav'))
         game.draw()
         print('shoot')
 
@@ -70,6 +71,16 @@ def handle_move(player):
         game.draw()
         print('d')
 
+    if keys[pygame.K_w]:
+        pygame.mixer.Channel(1).play(pygame.mixer.Sound('assets/audio/jump.wav'))
+        player.move_up(5)
+        game.draw()
+        print('w')
+
+    if keys[pygame.K_s]:
+        player.move_down(5)
+        game.draw()
+        print('s')
 
 
 if __name__ == '__main__':
@@ -82,6 +93,7 @@ if __name__ == '__main__':
     bg_image = pygame.transform.scale(pygame.image.load('assets/img/level1.png'), (WIDTH, HEIGHT)).convert_alpha()
     # create player
     player = Player(0, 400, 100, 100, 5)
+
 
     # enemy = Enemy()
     # enemies = pygame.sprite.Group()
