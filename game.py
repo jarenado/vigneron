@@ -55,6 +55,11 @@ def handle_move(player):
     keys = pygame.key.get_pressed()
     player.x_vel = 0
 
+    if keys[pygame.K_SPACE]:
+        # player.move_left(5)
+        game.draw()
+        print('shoot')
+
     if keys[pygame.K_a]:
         player.move_left(5)
         game.draw()

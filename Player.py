@@ -36,7 +36,7 @@ class Player(pygame.sprite.Sprite):
     ANIMATION_DELAY = 5
 
     def __init__(self, x, y, width, height, vel):
-        # super().__init__()
+        super().__init__()
         self.frame = 0
         self.health = 100
         self.max_health = 500
