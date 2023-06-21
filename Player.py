@@ -24,15 +24,15 @@ def load_sprite_sheets(dir1, dir2, width, height, direction='False'):
             sprites.append(surface)
 
         if direction:
-            all_sprites[image.replace(".png","") + '_right'] = sprites
-            all_sprites[image.replace('.png','') + '_left'] = flip(sprites)
+            all_sprites[image.replace(".png","") + '_right'] = flip(sprites)
+            all_sprites[image.replace('.png','') + '_left'] = sprites
         else:
             all_sprites[image.replace('.png','')] = sprites
 
     return all_sprites
 
 class Player(pygame.sprite.Sprite):
-    SPRITES = load_sprite_sheets("MainCharacters", "MaskDude", 32, 32)
+    SPRITES = load_sprite_sheets("MainCharacters", "MaskDude", 34, 44)
     ANIMATION_DELAY = 5
 
     def __init__(self, x, y, width, height, vel):
@@ -89,9 +89,9 @@ class Player(pygame.sprite.Sprite):
         self.update_sprite()
 
     def update_sprite(self):
-        sprite_sheet = "idle"
+        sprite_sheet = "idle-bunny"
         if self.x_vel != 0:
-            sprite_sheet = "run"
+            sprite_sheet = "idle-bunny"
 
         sprite_sheet_name = sprite_sheet + "_" + self.direction
         sprites = self.SPRITES[sprite_sheet_name]
