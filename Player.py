@@ -35,11 +35,13 @@ class Player(pygame.sprite.Sprite):
         
     def move_left(self, vel):
         self.x_vel = -vel
+        print('left')
         if self.direction != "left":
             self.direction = "left"
             self.animation_count = 0
 
     def move_right(self, vel):
+        print('right')
         self.x_vel = vel
         if self.direction != "right":
             self.direction = "right"
@@ -49,11 +51,7 @@ class Player(pygame.sprite.Sprite):
         self.move(self.x_vel, self.y_vel)
 
     def draw(self, screen):
-        pygame.draw.rect(screen, red, self.rect, 0)
-
-    def update(self):
-        if self.rect.left > WIDTH:
-            self.rect.right = 0
+        pygame.draw.rect(screen, red, self.rect)
 
 
 
