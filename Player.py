@@ -2,7 +2,7 @@ import pygame, sys
 from settings import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, x, y, width, height, vel):
         super().__init__()
         self.frame = 0
         self.health = 100
@@ -10,10 +10,12 @@ class Player(pygame.sprite.Sprite):
         self.is_jumping = False
         self.is_falling = True
         self.image = pygame.image.load('assets/img/Woodcutter.png')
-        self.rect = self.image.get_rect()
-        self.rect.x = 0
-        self.rect.y = HEIGHT - self.rect.height - 190
-        pygame.draw.rect(self.image, red, self.rect, 0)
+        self.rect = pygame.Rect(x, y, width, height)
+        self.x_vel = 0
+        self.y_vel = 0
+        self.direction = "right"
+        self.animation_count = 0
+        self.mask = None
 
     def jump(self):
         if self.isJump:
@@ -27,14 +29,31 @@ class Player(pygame.sprite.Sprite):
                 self.isJump = False
                 self.jumpCount = 10
 
-    def move_right(self):
-        self.rect.x += 5
-        pygame.draw.rect(self.image, red, self.rect, 0)
-
+    def move(self,dx,dy):
+        self.rect.x += dx
+        self.rect.y += dy
+        
     def move_left(self):
-        self.rect.x -= 5
-        pygame.draw.rect(self.image, red, self.rect, 0)
+        self.x_vel = -vel
+        if self.direction != "left":
+            self.direction = "left"
+            self.animation_count = 0
+
+    def move_right(self):
+        self.x_vel = vel
+        if self.direction != "right":
+            self.direction = "right"
+            self.animation_count = 0
+
+    def loop(self, fps):
+        self.move(self.x_vel, self.y_vel)
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, red, self.rect, 0)
 
     def update(self):
         if self.rect.left > WIDTH:
             self.rect.right = 0
+
+
+
