@@ -7,7 +7,6 @@ from Enemy import *
 
 class Game:
     def __init__(self):
-        pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption('My Game')
         self.clock = pygame.time.Clock()
@@ -50,9 +49,7 @@ class Game:
 
 
             self.draw()
-
             dt = self.clock.tick(FPS)
-            pygame.display.update()
 
 def handle_move(player):
     keys = pygame.key.get_pressed()
@@ -72,11 +69,12 @@ def handle_move(player):
 
 if __name__ == '__main__':
 
+    pygame.init()
     # set main game window size
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     
     # get background image
-    bg_image = pygame.transform.scale(pygame.image.load('assets/img/level1.png'), (WIDTH, HEIGHT))
+    bg_image = pygame.transform.scale(pygame.image.load('assets/img/level1.png'), (WIDTH, HEIGHT)).convert_alpha()
     # create player
     player = Player(0, 400, 100, 100, 5)
 
